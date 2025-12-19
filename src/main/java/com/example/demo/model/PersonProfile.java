@@ -57,7 +57,7 @@ public class PersonProfile {
         this.fullName = fullName;
     }
 
-    public String getEmail() {          // ⭐ THIS WAS MISSING
+    public String getEmail() {          
         return email;
     }
 
