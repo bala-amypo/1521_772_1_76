@@ -20,6 +20,14 @@ public class PersonProfileController {
     public PersonProfile create(@RequestBody PersonProfile person) {
         return service.createPerson(person);
     }
+    @GetMapping
+    public PersonProfile hi(@RequestParam int id) {
+        return "the id is "+id;
+    }
+    @GetMapping
+    public PersonProfile hlo(@PathVariable PersonProfile person) {
+        return service.createPerson(person);
+    }
 
     @GetMapping("/{id}")
     public PersonProfile getById(@PathVariable Long id) {
