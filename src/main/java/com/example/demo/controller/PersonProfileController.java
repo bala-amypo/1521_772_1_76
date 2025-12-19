@@ -21,11 +21,11 @@ public class PersonProfileController {
         return service.createPerson(person);
     }
     @GetMapping("/hi")
-    public PersonProfile hi(@RequestParam int id) {
+    public String hi(@RequestParam int id) {
         return "the id is "+id;
     }
     @GetMapping("/hlo")
-    public PersonProfile hlo(@PathVariable int ido,@PathVariable int idt) {
+    public String hlo(@PathVariable int ido,@PathVariable int idt) {
         return "the id is "+ido + "the id is "+idt;
     }
 
