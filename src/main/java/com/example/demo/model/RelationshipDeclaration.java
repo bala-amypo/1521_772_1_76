@@ -17,6 +17,15 @@ public class RelationshipDeclaration {
     private Boolean isVerified = false;
     private LocalDateTime declaredAt = LocalDateTime.now();
 
+    @ManyToOne
+@JoinColumn(name = "person_id", insertable = false, updatable = false)
+private PersonProfile person;
+
+public PersonProfile getPerson() {
+    return person;
+}
+
+
     // ✅ GETTERS & SETTERS
 
     public Long getId() {
