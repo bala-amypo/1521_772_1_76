@@ -26,8 +26,6 @@ public PersonProfile getPerson() {
 }
 
 
-    // ✅ GETTERS & SETTERS
-
     public Long getId() {
         return id;
     }
