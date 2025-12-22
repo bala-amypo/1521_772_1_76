@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "person_profiles",
-       uniqueConstraints = {
-           @UniqueConstraint(columnNames = "email"),
-           @UniqueConstraint(columnNames = "referenceId")
-       })
+@Table(
+    name = "person_profiles",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "referenceId")
+    }
+)
 public class PersonProfile {
 
     @Id
@@ -20,10 +22,12 @@ public class PersonProfile {
     private String fullName;
     private String email;
     private String department;
+
     private Boolean relationshipDeclared = false;
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // 🔽 GETTERS & SETTERS (IMPORTANT)
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -57,7 +61,7 @@ public class PersonProfile {
         this.fullName = fullName;
     }
 
-    public String getEmail() {          // ⭐ THIS WAS MISSING
+    public String getEmail() {
         return email;
     }
 

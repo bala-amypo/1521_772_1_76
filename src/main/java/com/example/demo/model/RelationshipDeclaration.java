@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "relationship_declarations")
 public class RelationshipDeclaration {
 
     @Id
@@ -14,15 +15,12 @@ public class RelationshipDeclaration {
     private String relatedPersonName;
     private String relationshipType;
     private String description;
+
     private Boolean isVerified = false;
+
     private LocalDateTime declaredAt = LocalDateTime.now();
 
-private PersonProfile person;
-
-public PersonProfile getPerson() {
-    return person;
-}
-
+    // Getters & Setters
 
     public Long getId() {
         return id;
@@ -75,9 +73,4 @@ public PersonProfile getPerson() {
     public LocalDateTime getDeclaredAt() {
         return declaredAt;
     }
-
-    public void setDeclaredAt(LocalDateTime declaredAt) {
-        this.declaredAt = declaredAt;
-    }
 }
-
