@@ -1,40 +1,51 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.PersonProfileService;
-import com.example.demo.repository.PersonProfileRepository;
-import com.example.demo.model.PersonProfile;
 import com.example.demo.exception.ApiException;
-
+import com.example.demo.model.PersonProfile;
+import com.example.demo.repository.PersonProfileRepository;
+import com.example.demo.service.PersonProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service   
+@Service
 public class PersonProfileServiceImpl implements PersonProfileService {
 
-    private final PersonProfileRepository repo;
+    private final PersonProfileRepository repository;
 
-    public PersonProfileServiceImpl(PersonProfileRepository repo) {
-        this.repo = repo;
+    public PersonProfileServiceImpl(PersonProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public PersonProfile createPerson(PersonProfile person) {
-        repo.findByEmail(person.getEmail())
-            .ifPresent(p -> {
-                throw new ApiException("Duplicate email");
-            });
-        return repo.save(person);
+
+        if (repository.findByEmail(person.getEmail()).isPresent()) {
+            throw new ApiException("email already exists");
+        }
+
+        if (repository.findByReferenceId(person.getReferenceId()).isPresent()) {
+            throw new ApiException("reference already exists");
+        }
+
+        return repository.save(person);
     }
 
     @Override
     public PersonProfile getPersonById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ApiException("Missing person"));
+        return repository.findById(id)
+                .orElseThrow(() -> new ApiException("person not found"));
     }
 
     @Override
     public List<PersonProfile> getAllPersons() {
-        return repo.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public PersonProfile updateRelationshipDeclared(Long id, boolean declared) {
+        PersonProfile person = getPersonById(id);
+        person.setRelationshipDeclared(declared);
+        return repository.save(person);
     }
 }

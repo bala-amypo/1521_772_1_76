@@ -1,9 +1,10 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.VendorEngagementRecord;
+import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.repository.VendorEngagementRecordRepository;
 import com.example.demo.service.VendorEngagementService;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,33 +13,39 @@ import java.util.List;
 public class VendorEngagementServiceImpl
         implements VendorEngagementService {
 
-    private final VendorEngagementRecordRepository repo;
+    private final VendorEngagementRecordRepository repository;
+    private final PersonProfileRepository personRepository;
 
     public VendorEngagementServiceImpl(
-            VendorEngagementRecordRepository repo) {
-        this.repo = repo;
+            VendorEngagementRecordRepository repository,
+            PersonProfileRepository personRepository) {
+        this.repository = repository;
+        this.personRepository = personRepository;
     }
 
     @Override
     public VendorEngagementRecord addEngagement(
             VendorEngagementRecord record) {
-        return repo.save(record);
+
+        personRepository.findById(record.getEmployeeId())
+                .orElseThrow(() -> new ApiException("person missing"));
+
+        personRepository.findById(record.getVendorId())
+                .orElseThrow(() -> new ApiException("person missing"));
+
+        return repository.save(record);
     }
 
     @Override
     public List<VendorEngagementRecord> getEngagementsByEmployee(
             Long employeeId) {
-        return repo.findByEmployeeId(employeeId);
+        return repository.findByEmployeeId(employeeId);
     }
 
     @Override
     public List<VendorEngagementRecord> getEngagementsByVendor(
             Long vendorId) {
-        return repo.findByVendorId(vendorId);
-    }
-
-    @Override
-    public List<VendorEngagementRecord> getAllEngagements() {
-        return repo.findAll();
+        return repository.findByVendorId(vendorId);
     }
 }
+`
