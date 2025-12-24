@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.PersonProfile;
 import com.example.demo.service.PersonProfileService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/persons")
 public class PersonProfileController {
 
     private final PersonProfileService service;
@@ -17,17 +17,24 @@ public class PersonProfileController {
     }
 
     @PostMapping
-    public PersonProfile create(@RequestBody PersonProfile person) {
+    public PersonProfile createPerson(@RequestBody PersonProfile person) {
         return service.createPerson(person);
     }
 
     @GetMapping("/{id}")
-    public PersonProfile getById(@PathVariable Long id) {
+    public PersonProfile getPerson(@PathVariable Long id) {
         return service.getPersonById(id);
     }
 
     @GetMapping
-    public List<PersonProfile> getAll() {
+    public List<PersonProfile> getAllPersons() {
         return service.getAllPersons();
+    }
+
+    @PutMapping("/{id}/relationship")
+    public PersonProfile updateRelationshipDeclared(
+            @PathVariable Long id,
+            @RequestParam boolean declared) {
+        return service.updateRelationshipDeclared(id, declared);
     }
 }

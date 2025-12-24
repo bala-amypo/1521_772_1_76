@@ -1,38 +1,28 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.RelationshipDeclaration;
-import com.example.demo.service.RelationshipDeclarationService;
-
+import com.example.demo.service.impl.RelationshipDeclarationServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/relationships")
+@RequestMapping("/relationships")
 public class RelationshipDeclarationController {
 
-    private final RelationshipDeclarationService service;
+    private final RelationshipDeclarationServiceImpl service;
 
     public RelationshipDeclarationController(
-            RelationshipDeclarationService service) {
+            RelationshipDeclarationServiceImpl service) {
         this.service = service;
     }
 
-    // POST /api/relationships
     @PostMapping
     public RelationshipDeclaration declare(
             @RequestBody RelationshipDeclaration declaration) {
         return service.declareRelationship(declaration);
     }
 
-    // GET /api/relationships/person/{personId}
-    @GetMapping("/person/{personId}")
-    public List<RelationshipDeclaration> getByPerson(
-            @PathVariable Long personId) {
-        return service.getDeclarationsByPerson(personId);
-    }
-
-    // PUT /api/relationships/{id}/verify?verified=true
     @PutMapping("/{id}/verify")
     public RelationshipDeclaration verify(
             @PathVariable Long id,
@@ -40,7 +30,6 @@ public class RelationshipDeclarationController {
         return service.verifyDeclaration(id, verified);
     }
 
-    // GET /api/relationships
     @GetMapping
     public List<RelationshipDeclaration> getAll() {
         return service.getAllDeclarations();
