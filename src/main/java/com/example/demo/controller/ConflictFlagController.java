@@ -28,6 +28,6 @@ public class ConflictFlagController {
 
     @GetMapping("/case/{id}")
     public List<ConflictFlag> getByCase(@PathVariable Long id) {
-        return service.getFlagsByCase(id);
+        return service.service.getFlagsByCaseId(id);
     }
 }
