@@ -10,5 +10,5 @@ public interface ConflictFlagService {
 
     ConflictFlag getFlagById(Long id);
 
-    List<ConflictFlag> getFlagsByCase(Long caseId);
+    List<ConflictFlag> getFlagsByCaseId(Long caseId);
 }
