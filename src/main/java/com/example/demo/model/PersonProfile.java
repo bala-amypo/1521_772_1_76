@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(
-    name = "person_profiles",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "referenceId")
-    }
+        name = "person_profiles",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "referenceId")
+        }
 )
 public class PersonProfile {
 
@@ -27,7 +27,8 @@ public class PersonProfile {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public PersonProfile() {}
+    public PersonProfile() {
+    }
 
     public Long getId() {
         return id;
@@ -89,4 +90,3 @@ public class PersonProfile {
         return createdAt;
     }
 }
-``

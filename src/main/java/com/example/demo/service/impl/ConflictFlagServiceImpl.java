@@ -38,7 +38,7 @@ public class ConflictFlagServiceImpl implements ConflictFlagService {
     }
 
     @Override
-    public List<ConflictFlag> getFlagsByCase(Long caseId) {
+    public List<ConflictFlag> getFlagsByCaseId(Long caseId) {
         return repository.findByCaseId(caseId);
     }
 }
