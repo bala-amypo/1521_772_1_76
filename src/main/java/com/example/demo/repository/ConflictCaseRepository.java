@@ -9,5 +9,7 @@ public interface ConflictCaseRepository
         extends JpaRepository<ConflictCase, Long> {
 
     List<ConflictCase> findByPrimaryPersonIdOrSecondaryPersonId(
-            Long primaryPersonId, Long secondaryPersonId);
+            Long primaryPersonId,
+            Long secondaryPersonId
+    );
 }
