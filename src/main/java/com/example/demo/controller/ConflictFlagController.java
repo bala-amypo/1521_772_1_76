@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ConflictFlag;
-import com.example.demo.service.impl.ConflictFlagServiceImpl;
+import com.example.demo.service.ConflictFlagService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @RequestMapping("/flags")
 public class ConflictFlagController {
 
-    private final ConflictFlagServiceImpl service;
+    private final ConflictFlagService service;
 
-    public ConflictFlagController(ConflictFlagServiceImpl service) {
+    public ConflictFlagController(ConflictFlagService service) {
         this.service = service;
     }
 
@@ -28,6 +28,6 @@ public class ConflictFlagController {
 
     @GetMapping("/case/{id}")
     public List<ConflictFlag> getByCase(@PathVariable Long id) {
-        return service.service.getFlagsByCaseId(id);
+        return service.getFlagsByCaseId(id);
     }
 }
