@@ -27,7 +27,7 @@ public class PersonProfile {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Getters & Setters
+    public PersonProfile() {}
 
     public Long getId() {
         return id;
@@ -89,3 +89,4 @@ public class PersonProfile {
         return createdAt;
     }
 }
+``

@@ -17,7 +17,7 @@ public class VendorEngagementRecord {
     private LocalDate engagementDate;
     private String notes;
 
-    // ✅ GETTERS & SETTERS
+    public VendorEngagementRecord() {}
 
     public Long getId() {
         return id;
