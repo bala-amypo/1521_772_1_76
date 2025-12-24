@@ -1,47 +1,37 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.VendorEngagementRecord;
-import com.example.demo.service.VendorEngagementService;
-
+import com.example.demo.service.impl.VendorEngagementServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/engagements")
+@RequestMapping("/engagements")
 public class VendorEngagementController {
 
-    private final VendorEngagementService service;
+    private final VendorEngagementServiceImpl service;
 
     public VendorEngagementController(
-            VendorEngagementService service) {
+            VendorEngagementServiceImpl service) {
         this.service = service;
     }
 
-    // POST /api/engagements
     @PostMapping
-    public VendorEngagementRecord add(
+    public VendorEngagementRecord addEngagement(
             @RequestBody VendorEngagementRecord record) {
         return service.addEngagement(record);
     }
 
-    // GET /api/engagements/employee/{employeeId}
-    @GetMapping("/employee/{employeeId}")
-    public List<VendorEngagementRecord> getByEmployee(
-            @PathVariable Long employeeId) {
-        return service.getEngagementsByEmployee(employeeId);
+    @GetMapping("/employee/{id}")
+    public List<VendorEngagementRecord> byEmployee(
+            @PathVariable Long id) {
+        return service.getEngagementsByEmployee(id);
     }
 
-    // GET /api/engagements/vendor/{vendorId}
-    @GetMapping("/vendor/{vendorId}")
-    public List<VendorEngagementRecord> getByVendor(
-            @PathVariable Long vendorId) {
-        return service.getEngagementsByVendor(vendorId);
-    }
-
-    // GET /api/engagements
-    @GetMapping
-    public List<VendorEngagementRecord> getAll() {
-        return service.getAllEngagements();
+    @GetMapping("/vendor/{id}")
+    public List<VendorEngagementRecord> byVendor(
+            @PathVariable Long id) {
+        return service.getEngagementsByVendor(id);
     }
 }

@@ -1,24 +1,24 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ConflictCase;
-import com.example.demo.service.ConflictCaseService;
-
+import com.example.demo.service.impl.ConflictCaseServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/conflict-cases")
+@RequestMapping("/conflicts")
 public class ConflictCaseController {
 
-    private final ConflictCaseService service;
+    private final ConflictCaseServiceImpl service;
 
-    public ConflictCaseController(ConflictCaseService service) {
+    public ConflictCaseController(ConflictCaseServiceImpl service) {
         this.service = service;
     }
 
     @PostMapping
-    public ConflictCase create(@RequestBody ConflictCase conflictCase) {
+    public ConflictCase createCase(
+            @RequestBody ConflictCase conflictCase) {
         return service.createCase(conflictCase);
     }
 
@@ -29,18 +29,14 @@ public class ConflictCaseController {
         return service.updateCaseStatus(id, status);
     }
 
-    @GetMapping("/person/{personId}")
-    public List<ConflictCase> getByPerson(@PathVariable Long personId) {
-        return service.getCasesByPerson(personId);
-    }
-
     @GetMapping("/{id}")
-    public ConflictCase getById(@PathVariable Long id) {
+    public ConflictCase getCase(@PathVariable Long id) {
         return service.getCaseById(id);
     }
 
-    @GetMapping
-    public List<ConflictCase> getAll() {
-        return service.getAllCases();
+    @GetMapping("/person/{id}")
+    public List<ConflictCase> getByPerson(
+            @PathVariable Long id) {
+        return service.getCasesByPerson(id);
     }
 }
