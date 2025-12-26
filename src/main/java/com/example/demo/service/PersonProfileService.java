@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.PersonProfile;
-
 import java.util.List;
 import java.util.Optional;
+import com.example.demo.model.PersonProfile;
 
 public interface PersonProfileService {
 
@@ -13,7 +12,8 @@ public interface PersonProfileService {
 
     List<PersonProfile> getAllPersons();
 
-    Optional<PersonProfile> findByReferenceId(String referenceId);
-
     PersonProfile updateRelationshipDeclared(Long id, boolean declared);
+    
+    Optional<PersonProfile> findByReferenceId(String referenceId);
+    
 }

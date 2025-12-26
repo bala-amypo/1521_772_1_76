@@ -1,23 +1,37 @@
 package com.example.demo.security;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
-
-    private final Map<String, UserPrincipal> users = new HashMap<>();
-    private final AtomicLong idGen = new AtomicLong();
-
-    public UserPrincipal register(String email, String pass, String role) {
-        UserPrincipal u =
-                new UserPrincipal(idGen.incrementAndGet(), email, pass, role);
-        users.put(email, u);
-        return u;
+    // helper for tests
+    public UserDetails loadUser(String username, List<String> roles) {
+        return new UserPrincipal(
+                username,
+                "password",
+                roles.stream()
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
+        );
     }
 
+    public UserPrincipal register(String username, String password, String role) {
+        return new UserPrincipal(
+                username,
+                password,
+                List.of(new SimpleGrantedAuthority(role))
+        );
+    }
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        return users.get(username);
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+
+        return register(username, "password", "ROLE_USER");
     }
+
 }

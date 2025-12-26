@@ -1,47 +1,58 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ApiException;
-import com.example.demo.model.ConflictCase;
-import com.example.demo.repository.ConflictCaseRepository;
-import com.example.demo.service.ConflictCaseService;
+import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.model.ConflictCase;
+import com.example.demo.service.ConflictCaseService;
+import com.example.demo.repository.ConflictCaseRepository;
+import com.example.demo.repository.ConflictFlagRepository;
 
-@Service   // 🔥 THIS IS THE FIX
-public class ConflictCaseServiceImpl implements ConflictCaseService {
+import com.example.demo.exception.ApiException;
 
-    private final ConflictCaseRepository repo;
 
-    public ConflictCaseServiceImpl(ConflictCaseRepository repo) {
-        this.repo = repo;
+@Service
+public class ConflictCaseServiceImpl implements ConflictCaseService
+{
+    private final ConflictCaseRepository rep;
+    private final ConflictFlagRepository flagRepo;
+
+    public ConflictCaseServiceImpl(ConflictCaseRepository rep,ConflictFlagRepository flagRepo) {
+        this.rep = rep;
+        this.flagRepo = flagRepo;
     }
 
     @Override
-    public ConflictCase createCase(ConflictCase conflictCase) {
-        return repo.save(conflictCase);
+    public ConflictCase createCase(ConflictCase conflictCase)
+    {
+        return rep.save(conflictCase);
     }
 
     @Override
-    public ConflictCase getCaseById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ApiException("Case not found"));
+    public ConflictCase updateCaseStatus(Long caseId, String status) {
+
+        ConflictCase ss = rep.findById(caseId)
+                .orElseThrow(() -> new ApiException("case not found"));
+
+        ss.setStatus(status);
+        return rep.save(ss);
     }
 
-    @Override
-    public List<ConflictCase> getAllCases() {
-        return repo.findAll();
-    }
-
-    @Override
-    public ConflictCase updateCaseStatus(Long id, String status) {
-        ConflictCase c = getCaseById(id);
-        c.setStatus(status);
-        return repo.save(c);
-    }
 
     @Override
     public List<ConflictCase> getCasesByPerson(Long personId) {
-        return repo.findByPersonId(personId);
+        return rep.findByPrimaryPersonIdOrSecondaryPersonId(personId, personId);
+    }
+
+    @Override
+    public Optional<ConflictCase> getCaseById(Long id) {
+        return rep.findById(id);
+    }
+
+    @Override
+    public List<ConflictCase> getAllCases()
+    {
+        return rep.findAll();
     }
 }
