@@ -4,9 +4,11 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.ConflictFlag;
 import com.example.demo.repository.ConflictFlagRepository;
 import com.example.demo.service.ConflictFlagService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service   // 🔥 THIS IS THE FIX
 public class ConflictFlagServiceImpl implements ConflictFlagService {
 
     private final ConflictFlagRepository repo;
