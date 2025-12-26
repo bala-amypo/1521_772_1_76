@@ -2,9 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.PersonProfile;
 import com.example.demo.service.PersonProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/persons")
@@ -17,24 +18,14 @@ public class PersonProfileController {
     }
 
     @PostMapping
-    public PersonProfile createPerson(@RequestBody PersonProfile person) {
-        return service.createPerson(person);
+    public ResponseEntity<PersonProfile> create(@RequestBody PersonProfile p) {
+        return ResponseEntity.ok(service.createPerson(p));
     }
 
-    @GetMapping("/{id}")
-    public PersonProfile getPerson(@PathVariable Long id) {
-        return service.getPersonById(id);
-    }
-
-    @GetMapping
-    public List<PersonProfile> getAllPersons() {
-        return service.getAllPersons();
-    }
-
-    @PutMapping("/{id}/relationship")
-    public PersonProfile updateRelationshipDeclared(
-            @PathVariable Long id,
-            @RequestParam boolean declared) {
-        return service.updateRelationshipDeclared(id, declared);
+    @GetMapping("/{ref}")
+    public ResponseEntity<PersonProfile> lookup(@PathVariable String ref) {
+        Optional<PersonProfile> opt = service.findByReferenceId(ref);
+        return opt.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
