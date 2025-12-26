@@ -30,4 +30,16 @@ public class ConflictCaseServiceImpl implements ConflictCaseService {
     public List<ConflictCase> getAllCases() {
         return repo.findAll();
     }
+
+    @Override
+    public ConflictCase updateCaseStatus(Long id, String status) {
+        ConflictCase c = getCaseById(id);
+        c.setStatus(status);
+        return repo.save(c);
+    }
+
+    @Override
+    public List<ConflictCase> getCasesByPerson(Long personId) {
+        return repo.findByPersonId(personId);
+    }
 }
