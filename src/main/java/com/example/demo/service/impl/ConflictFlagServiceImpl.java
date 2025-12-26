@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.ConflictFlag;
 import com.example.demo.repository.ConflictFlagRepository;
 import com.example.demo.service.ConflictFlagService;
@@ -17,6 +18,12 @@ public class ConflictFlagServiceImpl implements ConflictFlagService {
     @Override
     public ConflictFlag addFlag(ConflictFlag flag) {
         return repo.save(flag);
+    }
+
+    @Override
+    public ConflictFlag getFlagById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ApiException("Flag not found"));
     }
 
     @Override
