@@ -39,4 +39,11 @@ public class PersonProfileServiceImpl implements PersonProfileService {
     public Optional<PersonProfile> findByReferenceId(String referenceId) {
         return repo.findByReferenceId(referenceId);
     }
+
+    @Override
+    public PersonProfile updateRelationshipDeclared(Long id, boolean declared) {
+        PersonProfile p = getPersonById(id);
+        p.setRelationshipDeclared(declared);
+        return repo.save(p);
+    }
 }

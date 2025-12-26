@@ -8,12 +8,16 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
+    private final Long id;
     private final String username;
     private final String password;
+    private final String role;
 
-    public UserPrincipal(String username, String password) {
+    public UserPrincipal(Long id, String username, String password, String role) {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     @Override
