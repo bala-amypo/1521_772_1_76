@@ -15,64 +15,27 @@ public class VendorEngagementRecord {
     private String engagementType;
     private Double amount;
     private LocalDate engagementDate;
-    private String notes;
 
-    public VendorEngagementRecord() {
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getVendorId() { return vendorId; }
+    public void setVendorId(Long vendorId) { this.vendorId = vendorId; }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Long getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(Long vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public String getEngagementType() {
-        return engagementType;
-    }
-
+    public String getEngagementType() { return engagementType; }
     public void setEngagementType(String engagementType) {
         this.engagementType = engagementType;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
+    public Double getAmount() { return amount; }
+    public void setAmount(Double amount) { this.amount = amount; }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getEngagementDate() {
-        return engagementDate;
-    }
-
+    public LocalDate getEngagementDate() { return engagementDate; }
     public void setEngagementDate(LocalDate engagementDate) {
         this.engagementDate = engagementDate;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 }

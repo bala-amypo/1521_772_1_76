@@ -1,49 +1,44 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.ApiException;
-import com.example.demo.model.RelationshipDeclaration;
-import com.example.demo.repository.PersonProfileRepository;
-import com.example.demo.repository.RelationshipDeclarationRepository;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.service.RelationshipDeclarationService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class RelationshipDeclarationServiceImpl
         implements RelationshipDeclarationService {
 
-    private final RelationshipDeclarationRepository repository;
-    private final PersonProfileRepository personRepository;
+    private final RelationshipDeclarationRepository repo;
+    private final PersonProfileRepository personRepo;
 
     public RelationshipDeclarationServiceImpl(
-            RelationshipDeclarationRepository repository,
-            PersonProfileRepository personRepository) {
-        this.repository = repository;
-        this.personRepository = personRepository;
+            RelationshipDeclarationRepository repo,
+            PersonProfileRepository personRepo) {
+        this.repo = repo;
+        this.personRepo = personRepo;
     }
 
     @Override
-    public RelationshipDeclaration declareRelationship(
-            RelationshipDeclaration declaration) {
-
-        personRepository.findById(declaration.getPersonId())
-                .orElseThrow(() -> new ApiException("person not found"));
-
-        return repository.save(declaration);
+    public RelationshipDeclaration declareRelationship(RelationshipDeclaration d) {
+        PersonProfile p = personRepo.findById(d.getPersonId())
+                .orElseThrow(() -> new ApiException("Person not found"));
+        p.setRelationshipDeclared(true);
+        personRepo.save(p);
+        return repo.save(d);
     }
 
     @Override
-    public RelationshipDeclaration verifyDeclaration(Long id, boolean verified) {
-        RelationshipDeclaration declaration = repository.findById(id)
-                .orElseThrow(() -> new ApiException("person not found"));
-
-        declaration.setIsVerified(verified);
-        return repository.save(declaration);
+    public RelationshipDeclaration verifyDeclaration(Long id, boolean flag) {
+        RelationshipDeclaration d = repo.findById(id)
+                .orElseThrow(() -> new ApiException("Declaration not found"));
+        d.setIsVerified(flag);
+        return repo.save(d);
     }
 
     @Override
     public List<RelationshipDeclaration> getAllDeclarations() {
-        return repository.findAll();
+        return repo.findAll();
     }
 }
