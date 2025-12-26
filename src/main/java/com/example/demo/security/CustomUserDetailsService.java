@@ -1,18 +1,23 @@
 package com.example.demo.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.*;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
-@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    private final Map<String, UserPrincipal> users = new HashMap<>();
+    private final AtomicLong idGen = new AtomicLong();
 
-        // Dummy user for test cases
-        return new UserPrincipal(username, "password");
+    public UserPrincipal register(String email, String pass, String role) {
+        UserPrincipal u =
+                new UserPrincipal(idGen.incrementAndGet(), email, pass, role);
+        users.put(email, u);
+        return u;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return users.get(username);
     }
 }
