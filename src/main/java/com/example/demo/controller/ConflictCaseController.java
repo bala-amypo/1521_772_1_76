@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ConflictCase;
-import com.example.demo.service.impl.ConflictCaseServiceImpl;
+import com.example.demo.service.ConflictCaseService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,15 +10,14 @@ import java.util.List;
 @RequestMapping("/conflicts")
 public class ConflictCaseController {
 
-    private final ConflictCaseServiceImpl service;
+    private final ConflictCaseService service;
 
-    public ConflictCaseController(ConflictCaseServiceImpl service) {
+    public ConflictCaseController(ConflictCaseService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ConflictCase createCase(
-            @RequestBody ConflictCase conflictCase) {
+    public ConflictCase createCase(@RequestBody ConflictCase conflictCase) {
         return service.createCase(conflictCase);
     }
 
@@ -35,8 +34,7 @@ public class ConflictCaseController {
     }
 
     @GetMapping("/person/{id}")
-    public List<ConflictCase> getByPerson(
-            @PathVariable Long id) {
+    public List<ConflictCase> getByPerson(@PathVariable Long id) {
         return service.getCasesByPerson(id);
     }
 }

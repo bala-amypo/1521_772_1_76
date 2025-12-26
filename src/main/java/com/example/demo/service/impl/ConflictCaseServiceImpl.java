@@ -4,9 +4,11 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.ConflictCase;
 import com.example.demo.repository.ConflictCaseRepository;
 import com.example.demo.service.ConflictCaseService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service   // 🔥 THIS IS THE FIX
 public class ConflictCaseServiceImpl implements ConflictCaseService {
 
     private final ConflictCaseRepository repo;
