@@ -5,7 +5,8 @@ import com.example.demo.model.PersonProfile;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.service.PersonProfileService;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class PersonProfileServiceImpl implements PersonProfileService {
 
@@ -16,17 +17,11 @@ public class PersonProfileServiceImpl implements PersonProfileService {
     }
 
     @Override
-    public PersonProfile createPerson(PersonProfile p) {
-        if (p.getEmail() == null)
-            throw new ApiException("Email required");
-
-        if (repo.findByEmail(p.getEmail()).isPresent())
+    public PersonProfile createPerson(PersonProfile personProfile) {
+        if (repo.findByEmail(personProfile.getEmail()).isPresent()) {
             throw new ApiException("Duplicate email");
-
-        if (repo.findByReferenceId(p.getReferenceId()).isPresent())
-            throw new ApiException("Duplicate reference");
-
-        return repo.save(p);
+        }
+        return repo.save(personProfile);
     }
 
     @Override
@@ -36,19 +31,12 @@ public class PersonProfileServiceImpl implements PersonProfileService {
     }
 
     @Override
-    public PersonProfile updateRelationshipDeclared(Long id, boolean flag) {
-        PersonProfile p = getPersonById(id);
-        p.setRelationshipDeclared(flag);
-        return repo.save(p);
-    }
-
-    @Override
     public List<PersonProfile> getAllPersons() {
         return repo.findAll();
     }
 
     @Override
-    public Optional<PersonProfile> findByReferenceId(String ref) {
-        return repo.findByReferenceId(ref);
+    public Optional<PersonProfile> findByReferenceId(String referenceId) {
+        return repo.findByReferenceId(referenceId);
     }
 }

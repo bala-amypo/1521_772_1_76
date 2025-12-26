@@ -9,6 +9,5 @@ public interface VendorEngagementRecordRepository
         extends JpaRepository<VendorEngagementRecord, Long> {
 
     List<VendorEngagementRecord> findByEmployeeId(Long employeeId);
-
     List<VendorEngagementRecord> findByVendorId(Long vendorId);
 }

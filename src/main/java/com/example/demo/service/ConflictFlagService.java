@@ -8,7 +8,5 @@ public interface ConflictFlagService {
 
     ConflictFlag addFlag(ConflictFlag flag);
 
-    ConflictFlag getFlagById(Long id);
-
     List<ConflictFlag> getFlagsByCaseId(Long caseId);
 }
