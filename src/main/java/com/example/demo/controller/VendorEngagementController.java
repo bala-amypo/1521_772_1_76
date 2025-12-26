@@ -1,41 +1,35 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.VendorEngagementRecord;
-import com.example.demo.service.VendorEngagementService;
+import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.model.VendorEngagementRecord;
+import com.example.demo.service.VendorEngagementService;
+
 
 @RestController
-@RequestMapping("/vendor-engagements")
-public class VendorEngagementController {
+@RequestMapping("/api/engagements")
 
-    private final VendorEngagementService service;
-
-    public VendorEngagementController(VendorEngagementService service) {
-        this.service = service;
-    }
-
+public class VendorEngagementController{
+    @Autowired
+    VendorEngagementService  ser;
     @PostMapping
-    public VendorEngagementRecord create(
-            @RequestBody VendorEngagementRecord record) {
-        return service.addEngagement(record);
-    }
-
+          public VendorEngagementRecord addEngagement(@RequestBody  VendorEngagementRecord record)
+          {
+               return ser.addEngagement(record);
+          }
+    @GetMapping("/employee/{employeeId}")
+        public List<VendorEngagementRecord>getEngagementsByEmployee(@PathVariable Long employeeId){
+              return ser.getEngagementsByEmployee(employeeId);
+        }
+    @GetMapping("/vendor/{vendorId}")
+        public List<VendorEngagementRecord>getEngagementsByVendor(@PathVariable Long vendorId){
+              return ser.getEngagementsByVendor(vendorId);
+        }
     @GetMapping
-    public List<VendorEngagementRecord> getAll() {
-        return service.getAllEngagements();
-    }
+        public List<VendorEngagementRecord>getAllEngagements(){
+              return ser.getAllEngagements();
+        }
 
-    @GetMapping("/employee/{id}")
-    public List<VendorEngagementRecord> byEmployee(
-            @PathVariable Long id) {
-        return service.getEngagementsByEmployee(id);
-    }
-
-    @GetMapping("/vendor/{id}")
-    public List<VendorEngagementRecord> byVendor(
-            @PathVariable Long id) {
-        return service.getEngagementsByVendor(id);
-    }
 }

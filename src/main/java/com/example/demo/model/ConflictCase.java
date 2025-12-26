@@ -1,26 +1,80 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-public class ConflictCase {
-
+public class ConflictCase 
+{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    // 🔥 REQUIRED FOR findByPersonId
-    private Long personId;
-
-    private String status;
-
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getPersonId() { return personId; }
-    public void setPersonId(Long personId) { this.personId = personId; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+   private Long id;
+   private Long primaryPersonId;
+   private Long secondaryPersonId;
+   private String triggerSource;
+   private String riskLevel;
+   private String details;
+   private String status="OPEN";
+   private LocalDateTime detectedAt;
+   public Long getId() {
+    return id;
+   }
+   public void setId(Long id) {
+    this.id = id;
+   }
+   public Long getPrimaryPersonId() {
+    return primaryPersonId;
+   }
+   public void setPrimaryPersonId(Long primaryPersonId) {
+    this.primaryPersonId = primaryPersonId;
+   }
+   public Long getSecondaryPersonId() {
+    return secondaryPersonId;
+   }
+   public void setSecondaryPersonId(Long secondaryPersonId) {
+    this.secondaryPersonId = secondaryPersonId;
+   }
+   public String getTriggerSource() {
+    return triggerSource;
+   }
+   public void setTriggerSource(String triggerSource) {
+    this.triggerSource = triggerSource;
+   }
+   public String getRiskLevel() {
+    return riskLevel;
+   }
+   public void setRiskLevel(String riskLevel) {
+    this.riskLevel = riskLevel;
+   }
+   public String getDetails() {
+    return details;
+   }
+   public void setDetails(String details) {
+    this.details = details;
+   }
+   public String getStatus() {
+    return status;
+   }
+   public void setStatus(String status) {
+    this.status = status;
+   }
+   public LocalDateTime getDetectedAt() {
+    return detectedAt;
+   }
+   public void setDetectedAt(LocalDateTime detectedAt) {
+    this.detectedAt = detectedAt;
+   }
+   public ConflictCase(Long id, Long primaryPersonId, Long secondaryPersonId, String triggerSource, String riskLevel,
+        String details, String status, LocalDateTime detectedAt) {
+    this.id = id;
+    this.primaryPersonId = primaryPersonId;
+    this.secondaryPersonId = secondaryPersonId;
+    this.triggerSource = triggerSource;
+    this.riskLevel = riskLevel;
+    this.details = details;
+    this.status = status;
+    this.detectedAt = detectedAt;
+   }
+   public ConflictCase() {
+   }
+   
 }

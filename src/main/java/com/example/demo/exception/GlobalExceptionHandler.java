@@ -10,15 +10,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<String> handleApiException(ApiException ex) {
+
+        String msg = ex.getMessage().toLowerCase();
+
+        if (msg.contains("not found")) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(ex.getMessage());
+        }
+
+        if (msg.contains("exists") || msg.contains("duplicate")) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(ex.getMessage());
+        }
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneralException(Exception ex) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Internal server error");
     }
 }

@@ -1,11 +1,16 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ConflictCase;
+import java.util.*;
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.demo.model.ConflictCase;
 
-public interface ConflictCaseRepository extends JpaRepository<ConflictCase, Long> {
-
-    List<ConflictCase> findByPersonId(Long personId);
+@Repository
+public interface ConflictCaseRepository extends JpaRepository <ConflictCase,Long>{
+    
+    List<ConflictCase> findByPrimaryPersonIdOrSecondaryPersonId(
+            Long primaryPersonId,
+            Long secondaryPersonId
+    );
 }

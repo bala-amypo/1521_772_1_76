@@ -1,11 +1,13 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ConflictFlag;
+import java.util.*;
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.demo.model.ConflictFlag;
 
-public interface ConflictFlagRepository extends JpaRepository<ConflictFlag, Long> {
 
-    List<ConflictFlag> findByCaseId(Long caseId);
+@Repository
+public interface ConflictFlagRepository extends JpaRepository <ConflictFlag,Long>{
+    List<ConflictFlag>findByCaseId(Long caseId);
 }
