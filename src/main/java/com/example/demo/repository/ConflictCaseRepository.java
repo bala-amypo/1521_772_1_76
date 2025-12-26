@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface ConflictCaseRepository extends JpaRepository<ConflictCase, Long> {
 
-    // 🔥 REQUIRED FOR getCasesByPerson()
     List<ConflictCase> findByPersonId(Long personId);
 }

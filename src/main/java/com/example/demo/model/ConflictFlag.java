@@ -9,9 +9,11 @@ public class ConflictFlag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 🔥 REQUIRED FOR findByCaseId
     private Long caseId;
+
     private String flagType;
-    private String severity;
+    private String description;
 
     // getters & setters
     public Long getId() { return id; }
@@ -23,6 +25,6 @@ public class ConflictFlag {
     public String getFlagType() { return flagType; }
     public void setFlagType(String flagType) { this.flagType = flagType; }
 
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }
