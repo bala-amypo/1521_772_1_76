@@ -1,26 +1,30 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.VendorEngagementRecord;
-import com.example.demo.service.impl.VendorEngagementServiceImpl;
+import com.example.demo.service.VendorEngagementService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/engagements")
+@RequestMapping("/vendor-engagements")
 public class VendorEngagementController {
 
-    private final VendorEngagementServiceImpl service;
+    private final VendorEngagementService service;
 
-    public VendorEngagementController(
-            VendorEngagementServiceImpl service) {
+    public VendorEngagementController(VendorEngagementService service) {
         this.service = service;
     }
 
     @PostMapping
-    public VendorEngagementRecord addEngagement(
+    public VendorEngagementRecord create(
             @RequestBody VendorEngagementRecord record) {
         return service.addEngagement(record);
+    }
+
+    @GetMapping
+    public List<VendorEngagementRecord> getAll() {
+        return service.getAllEngagements();
     }
 
     @GetMapping("/employee/{id}")

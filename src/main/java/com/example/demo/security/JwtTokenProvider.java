@@ -6,12 +6,10 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
-        // dummy validation for now
         return true;
     }
 
     public String getUsernameFromToken(String token) {
-        // dummy username
         return "user";
     }
 }
