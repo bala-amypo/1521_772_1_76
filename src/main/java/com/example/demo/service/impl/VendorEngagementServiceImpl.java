@@ -1,53 +1,53 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ApiException;
-import com.example.demo.model.VendorEngagementRecord;
-import com.example.demo.repository.PersonProfileRepository;
-import com.example.demo.repository.VendorEngagementRecordRepository;
-import com.example.demo.service.VendorEngagementService;
+import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.model.VendorEngagementRecord;
+import com.example.demo.service.VendorEngagementService;
+import com.example.demo.repository.VendorEngagementRecordRepository;
+import com.example.demo.repository.PersonProfileRepository;
+import com.example.demo.exception.ApiException;
 
-@Service   // 🔥 THIS WAS MISSING
-public class VendorEngagementServiceImpl implements VendorEngagementService {
+@Service
 
-    private final VendorEngagementRecordRepository repo;
-    private final PersonProfileRepository personRepo;
+public class VendorEngagementServiceImpl implements VendorEngagementService
+{
+    
+    private final VendorEngagementRecordRepository rep;
+    private final PersonProfileRepository persrep;
 
-    public VendorEngagementServiceImpl(
-            VendorEngagementRecordRepository repo,
-            PersonProfileRepository personRepo) {
-        this.repo = repo;
-        this.personRepo = personRepo;
+    public VendorEngagementServiceImpl(VendorEngagementRecordRepository rep, PersonProfileRepository persrep){
+        this.rep = rep;
+        this.persrep = persrep;
     }
-
+    
     @Override
-    public VendorEngagementRecord addEngagement(VendorEngagementRecord r) {
+    public VendorEngagementRecord addEngagement(VendorEngagementRecord record)
+    {
+        if (record.getEmployeeId() == null ||
+            persrep.findById(record.getEmployeeId()).isEmpty()) {
 
-        if (personRepo.findById(r.getEmployeeId()).isEmpty()) {
-            throw new ApiException("Employee not found");
+            throw new ApiException("employee not found");
         }
 
-        if (personRepo.findById(r.getVendorId()).isEmpty()) {
-            throw new ApiException("Vendor not found");
-        }
-
-        return repo.save(r);
+        return rep.save(record);
     }
 
-    @Override
-    public List<VendorEngagementRecord> getEngagementsByEmployee(Long employeeId) {
-        return repo.findByEmployeeId(employeeId);
+       @Override
+    public List<VendorEngagementRecord>getEngagementsByEmployee(Long employeeId)
+    {
+        return rep.findByEmployeeId(employeeId);
     }
-
-    @Override
-    public List<VendorEngagementRecord> getEngagementsByVendor(Long vendorId) {
-        return repo.findByVendorId(vendorId);
+       @Override
+    public List<VendorEngagementRecord>getEngagementsByVendor(Long vendorId)
+    {
+        return rep.findByVendorId(vendorId);
     }
-
-    @Override
-    public List<VendorEngagementRecord> getAllEngagements() {
-        return repo.findAll();
+       @Override
+    public List<VendorEngagementRecord>getAllEngagements()
+    {
+        return rep.findAll();
     }
 }
