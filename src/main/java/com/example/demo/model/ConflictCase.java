@@ -56,10 +56,10 @@ public class ConflictCase
    }
    public void setStatus(String status) {
     this.status = status;
-   }Time getDetectedAt() {
+   }
+   public LocalDateTime getDetectedAt() {
     return detectedAt;
    }
-   public LocalDate
    public void setDetectedAt(LocalDateTime detectedAt) {
     this.detectedAt = detectedAt;
    }
