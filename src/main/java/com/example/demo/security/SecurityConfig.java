@@ -14,7 +14,7 @@ public class SecurityConfig {
     public JwtTokenProvider jwtTokenProvider() {
         return new JwtTokenProvider(
                 "very-long-secret-key-for-tests-1234567890",
-                3600000L   // 1 hour
+                3600000L   
         );
     }
 
