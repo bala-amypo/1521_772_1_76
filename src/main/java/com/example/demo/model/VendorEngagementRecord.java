@@ -48,7 +48,7 @@ public class VendorEngagementRecord{
     }
     public void setEngagementDate(LocalDate engagementDate) {
         this.engagementDate = engagementDate;
-    }
+    }S
     public String getNotes() {
         return notes;
     }
